@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readers Place</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <span>Readers Place</span>
+        </div>
+        <div class="nav-links">
+            <div class="nav-category">
+                <span>Genres</span>
+                <div class="dropdown">
+                    <a href="#" data-filter="genre" data-value="fiction">Fiction</a>
+                    <a href="#" data-filter="genre" data-value="non-fiction">Non-Fiction</a>
+                    <a href="#" data-filter="genre" data-value="biography">Biography</a>
+                    <a href="#" data-filter="genre" data-value="self-help">Self Help</a>
+                    <a href="#" data-filter="genre" data-value="fantasy">Fantasy</a>
+                    <a href="#" data-filter="genre" data-value="horror">Horror</a>
+                    <a href="#" data-filter="genre" data-value="indian">Indian Authors</a>
+                </div>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search books...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <button class="profile-btn" id="profileBtn">
+            <i class="fas fa-user"></i> <span id="profileBtnText">Sign In</span>
+        </button>
+    </nav>
+
+    <main>
+        <div class="filter-controls">
+            <select id="apiSelector">
+                <option value="gutendex">Gutenberg Books</option>
+                <option value="openlibrary">Open Library</option>
+                <option value="googlebooks">Google Books</option>
+                <option value="indianauthors">Indian Authors</option>
+            </select>
+            <button id="refreshBtn">Refresh Books</button>
+        </div>
+        
+        <h2 class="section-title" id="sectionTitle">Featured Books</h2>
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Loading books...</p>
+        </div>
+        <div class="books-container" id="booksContainer"></div>
+    </main>
+    <div class="modal" id="authModal">
+        <div class="modal-content auth-content">
+            <span class="close-modal" id="closeAuthModal">&times;</span>
+            
+            <div class="auth-form" id="loginForm">
+                <h2>Sign In</h2>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <button id="loginBtn">Sign In</button>
+                <p class="auth-switch">Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+                <p class="auth-error" id="loginError"></p>
+            </div>
+            
+            <div class="auth-form" id="signupForm" style="display: none;">
+                <h2>Sign Up</h2>
+                <div class="form-group">
+                    <label for="signupName">Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (min 6 chars)">
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password">
+                </div>
+                <button id="signupBtn">Sign Up</button>
+                <p class="auth-switch">Already have an account? <a href="#" id="showLogin">Sign in</a></p>
+                <p class="auth-error" id="signupError"></p>
+            </div>
+        </div>
+    </div>
+  <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeProfileModal">&times;</span>
+            <div class="profile-header">
+                <div class="profile-pic"><i class="fas fa-user"></i></div>
+                <div>
+                    <div class="profile-name" id="profileName">Reader Profile</div>
+                    <div class="profile-email" id="profileEmail">user@example.com</div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="booksRead">0</div>
+                    <div class="stat-label">Books Read</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="pagesRead">0</div>
+                    <div class="stat-label">Pages Read</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="readingGoal">0%</div>
+                    <div class="stat-label">Reading Goal</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="currentStreak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button id="logoutBtn">Sign Out</button>
+                <button id="updateProfileBtn">Update Profile</button>
+            </div>
+            
+            <h3>Reading History</h3>
+            <div class="recent-books" id="recentBooks"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
